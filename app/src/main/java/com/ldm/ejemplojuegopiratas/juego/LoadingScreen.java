@@ -32,10 +32,11 @@ public class LoadingScreen extends Pantalla{
         Assets.botin1 = g.newPixmap("frutas1.png", PixmapFormat.ARGB4444);
         Assets.botin2 = g.newPixmap("frutas2.png", PixmapFormat.ARGB4444);
         Assets.botin3 = g.newPixmap("frutas3.png", PixmapFormat.ARGB4444);
+        Assets.facil = g.newPixmap("facil.png", PixmapFormat.ARGB4444);
+        Assets.dificil = g.newPixmap("dificil.png", PixmapFormat.ARGB4444);
         Assets.pulsar = juego.getAudio().nuevoSonido("pulsar.ogg");
         Assets.ataque = juego.getAudio().nuevoSonido("ataque.ogg");
         Assets.derrota = juego.getAudio().nuevoSonido("derrota.ogg");
-
 
         Configuraciones.cargar(juego.getFileIO());
         juego.setScreen(new MainMenuScreen(juego));

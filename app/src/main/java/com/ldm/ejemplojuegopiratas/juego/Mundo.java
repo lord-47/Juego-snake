@@ -8,9 +8,14 @@ public class Mundo {
     static final int INCREMENTO_PUNTUACION = 10;
     static final float TICK_INICIAL = 0.5f;
     static final float TICK_DECREMENTO = 0.05f;
+    boolean dif =true;
+
+    public void setDif(boolean dif) {
+        this.dif = dif;
+    }
 
     public JollyRoger jollyroger;
-    public Botin botin;
+    public Comida botin;
     public boolean finalJuego = false;
     public int puntuacion = 0;
 
@@ -33,7 +38,7 @@ public class Mundo {
 
         int len = jollyroger.partes.size();
         for (int i = 0; i < len; i++) {
-            Tripulacion parte = jollyroger.partes.get(i);
+            Cuerposerpiente parte = jollyroger.partes.get(i);
             campos[parte.x][parte.y] = true;
         }
 
@@ -51,7 +56,7 @@ public class Mundo {
                 }
             }
         }
-        botin = new Botin(botinX, botinY, random.nextInt(3));
+        botin = new Comida(botinX, botinY, random.nextInt(3));
     }
 
     public void update(float deltaTime) {
@@ -69,10 +74,13 @@ public class Mundo {
                 return;
             }
 
-            Tripulacion head = jollyroger.partes.get(0);
+            Cuerposerpiente head = jollyroger.partes.get(0);
             if (head.x == botin.x && head.y == botin.y) {
                 puntuacion += INCREMENTO_PUNTUACION;
                 jollyroger.abordaje();
+                if (dif){
+                    jollyroger.abordaje();
+                }
                 if (jollyroger.partes.size() == MUNDO_ANCHO * MUNDO_ALTO) {
                     finalJuego = true;
                     return;
