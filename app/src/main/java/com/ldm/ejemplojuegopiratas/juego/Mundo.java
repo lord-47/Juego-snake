@@ -14,8 +14,8 @@ public class Mundo {
         this.dif = dif;
     }
 
-    public JollyRoger jollyroger;
-    public Comida botin;
+    public ekans ekans;
+    public Comida comida;
     public boolean finalJuego = false;
     public int puntuacion = 0;
 
@@ -25,38 +25,38 @@ public class Mundo {
     static float tick = TICK_INICIAL;
 
     public Mundo() {
-        jollyroger = new JollyRoger();
-        colocarBotin();
+        ekans = new ekans();
+        colocarComida();
     }
 
-    private void colocarBotin() {
+    private void colocarComida() {
         for (int x = 0; x < MUNDO_ANCHO; x++) {
             for (int y = 0; y < MUNDO_ALTO; y++) {
                 campos[x][y] = false;
             }
         }
 
-        int len = jollyroger.partes.size();
+        int len = ekans.partes.size();
         for (int i = 0; i < len; i++) {
-            Cuerposerpiente parte = jollyroger.partes.get(i);
+            Cuerposerpiente parte = ekans.partes.get(i);
             campos[parte.x][parte.y] = true;
         }
 
-        int botinX = random.nextInt(MUNDO_ANCHO);
-        int botinY = random.nextInt(MUNDO_ALTO);
+        int comidaX = random.nextInt(MUNDO_ANCHO);
+        int comidaY = random.nextInt(MUNDO_ALTO);
         while (true) {
-            if (campos[botinX][botinY] == false)
+            if (campos[comidaX][comidaY] == false)
                 break;
-            botinX += 1;
-            if (botinX >= MUNDO_ANCHO) {
-                botinX = 0;
-                botinY += 1;
-                if (botinY >= MUNDO_ALTO) {
-                    botinY = 0;
+            comidaX += 1;
+            if (comidaX >= MUNDO_ANCHO) {
+                comidaX = 0;
+                comidaY += 1;
+                if (comidaY >= MUNDO_ALTO) {
+                    comidaY = 0;
                 }
             }
         }
-        botin = new Comida(botinX, botinY, random.nextInt(3));
+        comida = new Comida(comidaX, comidaY, random.nextInt(3));
     }
 
     public void update(float deltaTime) {
@@ -68,24 +68,24 @@ public class Mundo {
 
         while (tiempoTick > tick) {
             tiempoTick -= tick;
-            jollyroger.avance();
-            if (jollyroger.comprobarChoque()) {
+            ekans.avance();
+            if (ekans.comprobarChoque()) {
                 finalJuego = true;
                 return;
             }
 
-            Cuerposerpiente head = jollyroger.partes.get(0);
-            if (head.x == botin.x && head.y == botin.y) {
+            Cuerposerpiente head = ekans.partes.get(0);
+            if (head.x == comida.x && head.y == comida.y) {
                 puntuacion += INCREMENTO_PUNTUACION;
-                jollyroger.abordaje();
+                ekans.comer();
                 if (dif){
-                    jollyroger.abordaje();
+                    ekans.comer();
                 }
-                if (jollyroger.partes.size() == MUNDO_ANCHO * MUNDO_ALTO) {
+                if (ekans.partes.size() == MUNDO_ANCHO * MUNDO_ALTO) {
                     finalJuego = true;
                     return;
                 } else {
-                    colocarBotin();
+                    colocarComida();
                 }
 
                 if (puntuacion % 100 == 0 && tick - TICK_DECREMENTO > 0) {

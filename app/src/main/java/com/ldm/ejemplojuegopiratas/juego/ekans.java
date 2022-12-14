@@ -3,7 +3,7 @@ package com.ldm.ejemplojuegopiratas.juego;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JollyRoger {
+public class ekans {
     public static final int ARRIBA = 0;
     public static final int IZQUIERDA= 1;
     public static final int ABAJO = 2;
@@ -12,7 +12,7 @@ public class JollyRoger {
     public List<Cuerposerpiente> partes = new ArrayList<Cuerposerpiente>();
     public int direccion;
 
-    public JollyRoger() {
+    public ekans() {
         direccion = ARRIBA;
         partes.add(new Cuerposerpiente(5, 6));
         partes.add(new Cuerposerpiente(5, 7));
@@ -31,13 +31,13 @@ public class JollyRoger {
             direccion = DERECHA;
     }
 
-    public void abordaje() {
+    public void comer() {
         Cuerposerpiente end = partes.get(partes.size()-1);
         partes.add(new Cuerposerpiente(end.x, end.y));
     }
 
     public void avance() {
-        Cuerposerpiente barco = partes.get(0);
+        Cuerposerpiente serpiente = partes.get(0);
 
         int len = partes.size() - 1;
         for(int i = len; i > 0; i--) {
@@ -48,30 +48,29 @@ public class JollyRoger {
         }
 
         if(direccion == ARRIBA)
-            barco.y -= 1;
+            serpiente.y -= 1;
         if(direccion == IZQUIERDA)
-            barco.x -= 1;
+            serpiente.x -= 1;
         if(direccion == ABAJO)
-            barco.y += 1;
+            serpiente.y += 1;
         if(direccion == DERECHA)
-            barco.x += 1;
-
-        if(barco.x < 0)
-            barco.x = 9;
-        if(barco.x > 9)
-            barco.x = 0;
-        if(barco.y < 0)
-            barco.y = 12;
-        if(barco.y > 12)
-            barco.y = 0;
+            serpiente.x += 1;
     }
 
     public boolean comprobarChoque() {
         int len = partes.size();
-        Cuerposerpiente barco = partes.get(0);
+        Cuerposerpiente serpiente = partes.get(0);
         for(int i = 1; i < len; i++) {
             Cuerposerpiente parte = partes.get(i);
-            if(parte.x == barco.x && parte.y == barco.y)
+            if(parte.x == serpiente.x && parte.y == serpiente.y)
+                return true;
+            if(serpiente.x < 0)
+                return true;
+            if(serpiente.x > 9)
+                return true;
+            if(serpiente.y < 0)
+                return true;
+            if(serpiente.y > 12)
                 return true;
         }
         return false;

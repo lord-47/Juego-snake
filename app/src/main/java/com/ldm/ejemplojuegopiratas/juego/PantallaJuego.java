@@ -75,10 +75,10 @@ public class PantallaJuego extends Pantalla {
             }
             if(event.type == TouchEvent.TOUCH_DOWN) {
                 if(event.x < 64 && event.y > 416) {
-                    mundo.jollyroger.girarIzquierda();
+                    mundo.ekans.girarIzquierda();
                 }
                 if(event.x > 256 && event.y > 416) {
-                    mundo.jollyroger.girarDerecha();
+                    mundo.ekans.girarDerecha();
                 }
             }
         }
@@ -158,39 +158,39 @@ public class PantallaJuego extends Pantalla {
 
     private void drawWorld(Mundo mundo) {
         Graficos g = juego.getGraphics();
-        JollyRoger jollyroger = mundo.jollyroger;
-        Cuerposerpiente head = jollyroger.partes.get(0);
-        Comida botin = mundo.botin;
+        ekans ekans = mundo.ekans;
+        Cuerposerpiente head = ekans.partes.get(0);
+        Comida comida = mundo.comida;
 
 
         Pixmap stainPixmap = null;
-        if(botin.tipo== Comida.TIPO_1)
-            stainPixmap = Assets.botin1;
-        if(botin.tipo == Comida.TIPO_2)
-            stainPixmap = Assets.botin2;
-        if(botin.tipo == Comida.TIPO_3)
-            stainPixmap = Assets.botin3;
-        int x = botin.x * 32;
-        int y = botin.y * 32;
+        if(comida.tipo== Comida.TIPO_1)
+            stainPixmap = Assets.comida1;
+        if(comida.tipo == Comida.TIPO_2)
+            stainPixmap = Assets.comida2;
+        if(comida.tipo == Comida.TIPO_3)
+            stainPixmap = Assets.comida3;
+        int x = comida.x * 32;
+        int y = comida.y * 32;
         g.drawPixmap(stainPixmap, x, y);
 
-        int len = jollyroger.partes.size();
+        int len = ekans.partes.size();
         for(int i = 1; i < len; i++) {
-            Cuerposerpiente part = jollyroger.partes.get(i);
+            Cuerposerpiente part = ekans.partes.get(i);
             x = part.x * 32;
             y = part.y * 32;
-            g.drawPixmap(Assets.tripulacion, x, y);
+            g.drawPixmap(Assets.cuerpo, x, y);
         }
 
         Pixmap headPixmap = null;
-        if(jollyroger.direccion == JollyRoger.ARRIBA)
-            headPixmap = Assets.barcoarriba;
-        if(jollyroger.direccion == JollyRoger.IZQUIERDA)
-            headPixmap = Assets.barcoizquierda;
-        if(jollyroger.direccion == JollyRoger.ABAJO)
-            headPixmap = Assets.barcoabajo;
-        if(jollyroger.direccion == JollyRoger.DERECHA)
-            headPixmap = Assets.barcoderecha;
+        if(ekans.direccion == ekans.ARRIBA)
+            headPixmap = Assets.serpientearriba;
+        if(ekans.direccion == ekans.IZQUIERDA)
+            headPixmap = Assets.serpienteizquierda;
+        if(ekans.direccion == ekans.ABAJO)
+            headPixmap = Assets.serpienteabajo;
+        if(ekans.direccion == ekans.DERECHA)
+            headPixmap = Assets.serpientederecha;
         x = head.x * 32 + 16;
         y = head.y * 32 + 16;
         g.drawPixmap(headPixmap, x - headPixmap.getWidth() / 2, y - headPixmap.getHeight() / 2);
@@ -200,8 +200,8 @@ public class PantallaJuego extends Pantalla {
         Graficos g = juego.getGraphics();
 
         g.drawPixmap(Assets.preparado, 47, 100);
-        g.drawPixmap(Assets.facil, 0, 416, 64, 64, 64, 64);
-        g.drawPixmap(Assets.dificil, 256, 416, 0, 64, 64, 64);
+        g.drawPixmap(Assets.facil, 0, 416);
+        g.drawPixmap(Assets.dificil, 256, 416);
         g.drawLine(0, 416, 480, 416, Color.BLACK);
     }
 
